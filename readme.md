@@ -11,5 +11,5 @@ steps to run the app:
 8. open the browser and check if it works
 
 Features:
-1. jwt is not needed AI Query System. just url:http://127.0.0.1:5000/
-2. http://127.0.0.1:5000/data is a secure endpoint, it needs jwt token which can be gnerated after login with hardcoded user. With token available and send with header, it works. I tested this in Postman
+1. jwt is not needed to AI Query System. just url:http://127.0.0.1:5000/
+2. http://127.0.0.1:5000/data is a secure endpoint, it needs jwt token which can be generated after login with hardcoded user. With token available and send with header, it works. I tested this in Postman
