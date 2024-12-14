@@ -9,10 +9,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Set your OpenAI API key
-connectk = os.getenv("connectk")
+openai_api_key = os.getenv("openai_api_key")
 
-if not connectk:
-    raise ValueError("OpenAI API key is not set. Please set the connectk environment variable.")
+if not openai_api_key:
+    raise ValueError("OpenAI API key is not set. Please set the openai_api_key environment variable.")
 
 bp = Blueprint('main', __name__)
 
@@ -34,7 +34,7 @@ def process_query():
         prompt = PromptTemplate.from_template(user_query)
 
         # Create the ChatOpenAI instance
-        chat_model = ChatOpenAI(connectk=connectk, model="gpt-4")
+        chat_model = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-4")
 
         # Combine prompt and model to create a runnable sequence
         # In the new API, use prompt | chat_model instead of LLMChain

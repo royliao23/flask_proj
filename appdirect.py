@@ -20,7 +20,7 @@ jwt = JWTManager(app)
 
 
 # Set your OpenAI API key
-connectk = os.getenv("connectk")
+openai_api_key = os.getenv("openai_api_key")
 
 # Dummy user database
 users = {"testuser": bcrypt.generate_password_hash("password").decode('utf-8')}
@@ -56,7 +56,7 @@ def get_answer():
         prompt = PromptTemplate.from_template(user_query)
 
         # Create the ChatOpenAI instance
-        chat_model = ChatOpenAI(connectk=connectk, model="gpt-4")
+        chat_model = ChatOpenAI(openai_api_key=openai_api_key, model="gpt-4")
 
         # Combine prompt and model to create a runnable sequence
         # In the new API, use prompt | chat_model instead of LLMChain

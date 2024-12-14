@@ -129,6 +129,7 @@
         #chatContainer::-webkit-scrollbar-thumb:hover {
             background: #aaa;
         }
+        p { margin-bottom: 15px;}
     </style>
 </head>
 <body>
@@ -154,7 +155,7 @@
         const submitBtn = document.getElementById("submitBtn");
 
         // Common function to handle user query submission
-        function handleQuerySubmission() {
+        async function handleQuerySubmission() {
             const userQuery = queryInput.value.trim();
             if (!userQuery) return;
 
@@ -164,17 +165,23 @@
             // Clear input field
             queryInput.value = "";
 
-            // Simulate loading placeholder for AI response
+            // load placeholder for AI response
             const loadingMessage = appendMessage("Typing...", "ai-response");
 
             try {
-                // Simulate AI response for demonstration
-                const simulatedResponse = {
-                    resp: `1. Be polite: Always use words like "please" and "thank you".\n\n2. Be respectful: Treat others how you want to be treated.\n\n3. Be positive: Focus on solutions instead of problems.`,
-                };
+                // AI response 
+                
+                // Send the query to the backend
+                const response = await fetch("/openai", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ query: userQuery }),
+                });
+
+                const data = await response.json();
 
                 // Replace loading placeholder with formatted AI response
-                const formattedResponse = formatResponse(simulatedResponse.resp);
+                const formattedResponse = formatResponse(data.resp);
                 loadingMessage.innerHTML = formattedResponse;
             } catch (error) {
                 loadingMessage.textContent = "Error: " + error.message;
