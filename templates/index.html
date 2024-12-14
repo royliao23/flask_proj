@@ -157,6 +157,7 @@
         // Common function to handle user query submission
         async function handleQuerySubmission() {
             const userQuery = queryInput.value.trim();
+            const token = localStorage.getItem("jwt_token");
             if (!userQuery) return;
 
             // Append user's query to the chat
