@@ -5,7 +5,6 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
-from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,7 +19,7 @@ jwt = JWTManager(app)
 
 
 # Set your OpenAI API key
-openai_api_key = os.getenv("openai_api_key")
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 # Dummy user database
 users = {"testuser": bcrypt.generate_password_hash("password").decode('utf-8')}
