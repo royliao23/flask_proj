@@ -4,9 +4,9 @@ steps to run the app:
     JWT_SECRET_KEY=.....
     OPENAI_API_KEY=.....
 3. create a virtual enviroment under project root: python -m venv flaskenv
-4. activate env like command:. flaskenv/scripts/activate and install dependant libs under project root: pip install -r requirements.txt
-5. start app under project root option1:flask run 
-6. optional  -> start app under project root option2:python appdirect.py
+4. activate env like command:. flaskenv/scripts/activate
+5. install dependant libs under project root: pip install -r requirements.txt
+6. start app under project root option1:flask run 
 7. optional  -> start app under project root option2:python app.py
 8. open the browser and check if it works
 
