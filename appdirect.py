@@ -1,3 +1,4 @@
+# this file can run alone without dpendency to route.py or jwttoken.py
 import os
 from flask import Flask, request, jsonify,render_template
 from flask_bcrypt import Bcrypt
