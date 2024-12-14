@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Query System</title>
+    <style>
+        /* Reset and global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            padding: 15px;
+            background-color: #4caf50;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #chatContainer {
+            flex: 1;
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center messages horizontally */
+            justify-content: flex-start; /* Start messages from the top */
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            word-wrap: break-word;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+
+        .user-message {
+            background-color: #e6f7ff;
+            align-self: flex-end;
+            text-align: right;
+        }
+
+        .ai-response {
+            background-color: #f7f7f7;
+            align-self: flex-start;
+            text-align: left;
+        }
+
+        .timestamp {
+            font-size: 0.8rem;
+            color: gray;
+            margin-top: 5px;
+        }
+
+        #inputArea {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        #inputArea input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        #inputArea button {
+            padding: 12px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #inputArea button:hover {
+            background-color: #45a049;
+        }
+
+        /* Scrollbar styling */
+        #chatContainer::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #chatContainer::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        #chatContainer::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <header>My AI Query System</header>
+    <main>
+        <div id="chatContainer" aria-label="Chat Messages"></div>
+        <div id="inputArea">
+            <input 
+                type="text" 
+                id="query" 
+                placeholder="Type your question here..." 
+                required 
+                aria-label="Query Input" 
+                autocomplete="off"
+            >
+            <button id="submitBtn" aria-label="Send Query">Send</button>
+        </div>
+    </main>
+
+    <script>
+        const chatContainer = document.getElementById("chatContainer");
+        const queryInput = document.getElementById("query");
+        const submitBtn = document.getElementById("submitBtn");
+
+        // Common function to handle user query submission
+        function handleQuerySubmission() {
+            const userQuery = queryInput.value.trim();
+            if (!userQuery) return;
+
+            // Append user's query to the chat
+            appendMessage(userQuery, "user-message");
+
+            // Clear input field
+            queryInput.value = "";
+
+            // Simulate loading placeholder for AI response
+            const loadingMessage = appendMessage("Typing...", "ai-response");
+
+            try {
+                // Simulate AI response for demonstration
+                const simulatedResponse = {
+                    resp: `1. Be polite: Always use words like "please" and "thank you".\n\n2. Be respectful: Treat others how you want to be treated.\n\n3. Be positive: Focus on solutions instead of problems.`,
+                };
+
+                // Replace loading placeholder with formatted AI response
+                const formattedResponse = formatResponse(simulatedResponse.resp);
+                loadingMessage.innerHTML = formattedResponse;
+            } catch (error) {
+                loadingMessage.textContent = "Error: " + error.message;
+            }
+
+            // Scroll to the bottom of the chat container
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Append a new message to the chat container
+        function appendMessage(content, className) {
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `message ${className}`;
+            messageDiv.innerHTML = content; // Display content
+            chatContainer.appendChild(messageDiv);
+            return messageDiv;
+        }
+
+        // Format AI response to insert paragraphs based on \n\n
+        function formatResponse(text) {
+            return text
+                .split("\n\n") // Split by double newlines
+                .map(paragraph => `<p>${paragraph}</p>`) // Wrap each paragraph in <p> tags
+                .join(""); // Combine into a single HTML string
+        }
+
+        // Add event listener to the submit button
+        submitBtn.addEventListener("click", handleQuerySubmission);
+
+        // Add "Enter key" listener for input
+        queryInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                handleQuerySubmission();
+            }
+        });
+    </script>
+</body>
+</html>
