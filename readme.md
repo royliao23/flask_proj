@@ -7,7 +7,7 @@ steps to run the app:
 4. activate env like command:. flaskenv/scripts/activate
 5. install dependant libs under project root: pip install -r requirements.txt
 6. start app under project root option1:flask run 
-7. optional  -> start app under project root option2:python app.py
+7. optional  -> start app under project root option:python app.py
 8. open the browser and check if it works
 
 Features:
